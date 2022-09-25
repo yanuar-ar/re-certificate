@@ -46,8 +46,9 @@ contract ReCertificate is ERC721, ERC721Enumerable, EIP712, Pausable, Ownable {
         string calldata pin,
         bytes calldata _signature
     ) public payable whenNotPaused returns (bool) {
-        // validate signature
         require(_exists(tokenId), 'Token does not exists !');
+
+        // validate signature
         require(signer == _verify(tokenId, pin, _signature), 'Invalid signature');
 
         return true;
@@ -59,7 +60,7 @@ contract ReCertificate is ERC721, ERC721Enumerable, EIP712, Pausable, Ownable {
         bytes calldata signature
     ) internal view returns (address) {
         bytes32 TYPEHASH = keccak256('VerifyCertificate(uint256 tokenId,string pin)');
-        bytes32 digest = _hashTypedDataV4(keccak256(abi.encode(TYPEHASH, tokenId, pin)));
+        bytes32 digest = _hashTypedDataV4(keccak256(abi.encode(TYPEHASH, tokenId, keccak256(abi.encodePacked(pin)))));
         return ECDSA.recover(digest, signature);
     }
 

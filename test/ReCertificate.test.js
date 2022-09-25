@@ -57,7 +57,7 @@ describe('re:certificate Testing', async () => {
         pin: pin,
       });
 
-      expect(await reCertificate.verifyCertificate(tokenId, pin, signature)).to.eq(true);
+      expect(await reCertificate.verifyCertificate(tokenId, pin, signature)).not.to.be.reverted;
     });
   });
 });
