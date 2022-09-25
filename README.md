@@ -1,4 +1,4 @@
-# Project RE: - re:collections
+# Project RE: - re:certificate
 
 ## Development
 
